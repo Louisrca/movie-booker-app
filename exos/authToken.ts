@@ -18,7 +18,7 @@ const user = {
 // variable utilisateur sans valeur pour tester cas d'échec des fonctions
 let users;
 
-function generateToken(user: User | undefined) {
+const generateToken = (user: User | undefined) => {
   if (user) {
     let encoded = btoa(JSON.stringify(user));
     return encoded;
@@ -26,9 +26,9 @@ function generateToken(user: User | undefined) {
   if (!user) {
     return "No user init";
   }
-}
+};
 
-function verifyToken(user: User | undefined) {
+const verifyToken = (user: User | undefined) => {
   if (user) {
     console.log("🚀 ~ generateToken:", generateToken(user));
     let decoded = atob(generateToken(user) ?? "");
@@ -37,7 +37,7 @@ function verifyToken(user: User | undefined) {
   if (!user) {
     return "User not found";
   }
-}
+};
 
 console.log("🚀 ~ verifyToken:", verifyToken(user));
 
