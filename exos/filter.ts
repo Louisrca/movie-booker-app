@@ -63,4 +63,16 @@ const filterProductsByName = (products: Product[], filter: string) => {
   );
 };
 
+const filterProductsByPrice = (
+  products: Product[],
+  filterRange: [number, number]
+) => {
+  return products.filter(
+    (product) =>
+      product.price >= filterRange[0] && product.price <= filterRange[1]
+  );
+};
+
 console.log(filterProductsByName(products, "product1"));
+
+console.log(filterProductsByPrice(products, [100, 300]));

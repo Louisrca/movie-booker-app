@@ -53,4 +53,10 @@ var filterProductsByName = function (products, filter) {
     // met en majuscule le nom du produit et compare avec le filtre en majuscule pour éviter la casses
     function (product) { return product.name.toUpperCase().includes(filter.toUpperCase()); });
 };
-console.log(filterProductsByName(products, "product1"));
+var filterProductsByPrice = function (products, filterRange) {
+    return products.filter(function (product) {
+        return product.price >= filterRange[0] && product.price <= filterRange[1];
+    });
+};
+// console.log(filterProductsByName(products, "product1"));
+console.log(filterProductsByPrice(products, [100, 300]));
