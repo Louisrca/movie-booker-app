@@ -73,6 +73,12 @@ const filterProductsByPrice = (
   );
 };
 
-console.log(filterProductsByName(products, "product1"));
+console.log(
+  "🚀 ~ filtres par nom de produits:",
+  filterProductsByName(products, "product1")
+);
 
-console.log(filterProductsByPrice(products, [100, 300]));
+console.log(
+  "🚀 ~ filtres par prix de produits:",
+  filterProductsByPrice(products, [100, 300])
+);
