@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+// on pourrait aussi importer User généré par prisma ici, mais on préfère importer le DTO
 import { PrismaService } from '../prisma.service';
 import { Prisma } from '@prisma/client';
 import { UserDto } from './dto/user.dto';

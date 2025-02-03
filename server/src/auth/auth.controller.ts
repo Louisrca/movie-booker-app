@@ -1,6 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { Post, Body, BadRequestException } from '@nestjs/common';
 import { ApiResponse, ApiBody } from '@nestjs/swagger';
+// on pourrait aussi importer User généré par prisma ici, mais on préfère importer le DTO
 import { LoginUserDto } from './dto/loginUser.dto';
 import { RegisterUserDto } from './dto/registerUser.dto';
 import { AuthService } from './auth.service';
