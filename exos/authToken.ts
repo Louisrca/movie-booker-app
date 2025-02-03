@@ -1,6 +1,3 @@
-// Description:
-// Simuler un système de login / register en JavaScript avec le decrytage et l'encryptage d'un token
-
 type User = {
   id: number;
   username: string;
@@ -15,8 +12,8 @@ const user = {
   role: "admin",
 };
 
-// variable utilisateur sans valeur pour tester cas d'échec des fonctions
-let users;
+// variable utilisateur undefined pour tester cas d'échec des fonctions
+let users = undefined;
 
 const generateToken = (user: User | undefined) => {
   if (user) {

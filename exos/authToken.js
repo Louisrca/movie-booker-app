@@ -1,13 +1,11 @@
-// Description:
-// Simuler un système de login / register en JavaScript avec le decrytage et l'encryptage d'un token
 var user = {
     id: 1,
     username: "louis",
     password: "admin@123",
     role: "admin",
 };
-// variable utilisateur sans valeur pour tester cas d'échec des fonctions
-var users;
+// variable utilisateur undefined pour tester cas d'échec des fonctions
+var users = undefined;
 var generateToken = function (user) {
     if (user) {
         var encoded = btoa(JSON.stringify(user));
