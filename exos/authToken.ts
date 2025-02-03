@@ -27,7 +27,7 @@ const generateToken = (user: User | undefined) => {
 const verifyToken = (user: User | undefined) => {
   if (user) {
     console.log("🚀 ~ generateToken:", generateToken(user));
-    let decoded = atob(generateToken(user) ?? "");
+    let decoded = atob(generateToken(user) || "");
     const parsedToken = JSON.parse(decoded);
     return parsedToken;
   }
