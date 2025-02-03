@@ -48,7 +48,9 @@ var products = [
         stock: 60,
     },
 ];
-var filterProducts = function (products, filter) {
-    return products.filter(function (product) { return product.name.includes(filter); });
+var filterProductsByName = function (products, filter) {
+    return products.filter(
+    // met en majuscule le nom du produit et compare avec le filtre en majuscule pour éviter la casses
+    function (product) { return product.name.toUpperCase().includes(filter.toUpperCase()); });
 };
-console.log(filterProducts(products, "product1"));
+console.log(filterProductsByName(products, "product1"));

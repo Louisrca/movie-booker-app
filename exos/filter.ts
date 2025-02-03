@@ -56,8 +56,11 @@ const products = [
   },
 ];
 
-const filterProducts = (products: Product[], filter: string) => {
-  return products.filter((product) => product.name.includes(filter));
+const filterProductsByName = (products: Product[], filter: string) => {
+  return products.filter(
+    // met en majuscule le nom du produit et compare avec le filtre en majuscule pour éviter la casses
+    (product) => product.name.toUpperCase().includes(filter.toUpperCase())
+  );
 };
 
-// console.log(filterProducts(products, "product1"));
+console.log(filterProductsByName(products, "product1"));
