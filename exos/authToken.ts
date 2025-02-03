@@ -20,20 +20,19 @@ const generateToken = (user: User | undefined) => {
     let encoded = btoa(JSON.stringify(user));
     return encoded;
   }
-  if (!user) {
-    return "No user init";
-  }
+
+  return "No user init";
 };
 
 const verifyToken = (user: User | undefined) => {
   if (user) {
     console.log("🚀 ~ generateToken:", generateToken(user));
     let decoded = atob(generateToken(user) ?? "");
-    return decoded;
+    const parsedToken = JSON.parse(decoded);
+    return parsedToken;
   }
-  if (!user) {
-    return "User not found";
-  }
+
+  return "User not found";
 };
 
 console.log("🚀 ~ verifyToken:", verifyToken(user));

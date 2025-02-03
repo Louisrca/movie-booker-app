@@ -11,20 +11,17 @@ var generateToken = function (user) {
         var encoded = btoa(JSON.stringify(user));
         return encoded;
     }
-    if (!user) {
-        return "No user init";
-    }
+    return "No user init";
 };
 var verifyToken = function (user) {
     var _a;
     if (user) {
         console.log("🚀 ~ generateToken:", generateToken(user));
         var decoded = atob((_a = generateToken(user)) !== null && _a !== void 0 ? _a : "");
-        return decoded;
+        var parsedToken = JSON.parse(decoded);
+        return parsedToken;
     }
-    if (!user) {
-        return "User not found";
-    }
+    return "User not found";
 };
 console.log("🚀 ~ verifyToken:", verifyToken(user));
 // cas d'échec de la fonction verifyToken
