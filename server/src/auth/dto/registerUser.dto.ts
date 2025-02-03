@@ -1,20 +1,22 @@
 import { IsNotEmpty, IsEmail, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
+type Role = 'ADMIN' | 'USER';
+
 export class RegisterUserDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'The first name of the User',
     example: 'Richard',
   })
-  firstname: string;
+  firstName: string;
 
   @IsNotEmpty()
   @ApiProperty({
     description: 'The last name of the User',
     example: 'Armstrong',
   })
-  lastname: string;
+  lastName: string;
 
   @IsEmail()
   @IsNotEmpty()
@@ -37,5 +39,5 @@ export class RegisterUserDto {
     description: 'The role of the User',
     example: 'ADMIN',
   })
-  role: ['ADMIN', 'USER'];
+  role: Role;
 }

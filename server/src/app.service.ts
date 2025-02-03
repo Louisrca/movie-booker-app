@@ -5,8 +5,4 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
-
-  getWelcome(): string {
-    return 'Welcome to my first NestJS application!';
-  }
 }
