@@ -22,9 +22,7 @@ export class MoviesService {
   }
 
   async getMovieByName(name: string): Promise<MoviesDTO> {
-    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURI(name)}&include_adult=false&language=en-US&page=1`;
-
-    console.log(url);
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURI(name)}&include_adult=false&language=en-US`;
 
     const options = {
       method: 'GET',

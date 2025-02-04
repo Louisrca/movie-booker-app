@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsEmail, MinLength, IsInt } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsEmail,
+  MinLength,
+  IsInt,
+  IsDate,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 type Role = 'ADMIN' | 'USER';
@@ -11,6 +18,7 @@ export class UserDto {
   })
   id: number;
 
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({
     description: 'The first name of the User',
@@ -18,6 +26,7 @@ export class UserDto {
   })
   firstName: string;
 
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({
     description: 'The last name of the User',
@@ -33,6 +42,7 @@ export class UserDto {
   })
   email: string;
 
+  @IsString()
   @IsNotEmpty()
   @MinLength(8)
   @ApiProperty({
@@ -41,20 +51,21 @@ export class UserDto {
   })
   password: string;
 
-  @IsNotEmpty()
+  @IsDate()
   @ApiProperty({
     description: 'The createdAt date of the User',
     example: '2021-10-05T00:00:00.000Z',
   })
   createdAt: Date;
 
-  @IsNotEmpty()
+  @IsDate()
   @ApiProperty({
     description: 'The updatedAt date of the User',
     example: '2021-10-05T00:00:00.000Z',
   })
   updatedAt: Date;
 
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({
     description: 'The role of the User',
