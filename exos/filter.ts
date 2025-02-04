@@ -75,7 +75,7 @@ const filterProductsByPrice = (
 
 console.log(
   "🚀 ~ filtres par nom de produits:",
-  filterProductsByName(products, "product1")
+  filterProductsByName(products, "pRodUct1")
 );
 
 console.log(

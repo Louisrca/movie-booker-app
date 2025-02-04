@@ -58,5 +58,5 @@ var filterProductsByPrice = function (products, filterRange) {
         return product.price >= filterRange[0] && product.price <= filterRange[1];
     });
 };
-console.log("🚀 ~ filtres par nom de produits:", filterProductsByName(products, "product1"));
+console.log("🚀 ~ filtres par nom de produits:", filterProductsByName(products, "pRodUct1"));
 console.log("🚀 ~ filtres par prix de produits:", filterProductsByPrice(products, [100, 300]));
