@@ -13,20 +13,24 @@ export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
+    const request: Request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(
+        'You are not authorized to access this resource. Sign in first to get access :)',
+      );
     }
     try {
-      const payload = await this.jwtService.verifyAsync(token, {
+      const payload: JwtService = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret,
       });
       // 💡 We're assigning the payload to the request object here
       // so that we can access it in our route handlers
       request['user'] = payload;
     } catch {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(
+        'You are not authorized to access this resource. Sign in first to get access :)',
+      );
     }
     return true;
   }

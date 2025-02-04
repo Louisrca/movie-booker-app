@@ -34,6 +34,7 @@ export class UserController {
     return { status: 201, message: await this.userService.user({ email }) };
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   @ApiResponse({
     status: 201,
