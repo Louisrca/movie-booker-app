@@ -1,8 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { MoviesService } from './movies.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { MoviesDTO } from './dto/movies.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -15,10 +14,7 @@ export class MoviesController {
     description: 'Show all movies and filter by page',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @ApiBody({
-    type: MoviesDTO,
-    description: 'Json structure for users object',
-  })
+  @ApiBearerAuth()
   async getMoviesByPage(@Query() params: { page: number }) {
     return this.moviesService.getMoviesByPage(params.page);
   }
@@ -29,10 +25,7 @@ export class MoviesController {
     description: 'Show movies by name',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @ApiBody({
-    type: MoviesDTO,
-    description: 'Json structure for users object',
-  })
+  @ApiBearerAuth()
   async getMovieByName(@Query() params: { name: string }) {
     return this.moviesService.getMovieByName(params.name);
   }

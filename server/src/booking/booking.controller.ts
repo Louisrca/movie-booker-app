@@ -2,7 +2,7 @@ import { Controller, Body, Post, UseGuards } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { BookingDTO } from './dto/booking.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('booking')
 export class BookingController {
@@ -20,6 +20,7 @@ export class BookingController {
     type: BookingDTO,
     description: 'Json structure for booking object',
   })
+  @ApiBearerAuth()
   async createBooking(
     @Body()
     bookingData: BookingDTO,

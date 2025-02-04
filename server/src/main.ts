@@ -11,6 +11,12 @@ async function bootstrap() {
     .setDescription('The Movie Booker API description')
     .setVersion('1.0')
     .addTag('movies and bookings')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      in: 'header',
+    })
+    .addSecurityRequirements('ApiKeyAuth')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
