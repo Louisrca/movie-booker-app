@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Post, Body, BadRequestException } from '@nestjs/common';
+import { Post, Body } from '@nestjs/common';
 import { ApiResponse, ApiBody } from '@nestjs/swagger';
 // on pourrait aussi importer User généré par prisma ici, mais on préfère importer le DTO
 import { LoginUserDto } from './dto/loginUser.dto';
@@ -21,7 +21,7 @@ export class AuthController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBody({
     type: RegisterUserDto,
-    description: 'Json structure for user object',
+    description: 'Json structure for user object.',
   })
   async register(
     @Body()
@@ -32,22 +32,6 @@ export class AuthController {
       lastName: string;
     },
   ): Promise<{ status: number; message: RegisterUserDto }> {
-    const { email, password, firstName, lastName } = userData;
-    if (!email || !password || !firstName || !lastName) {
-      throw new BadRequestException('Something bad happened', {
-        cause: new Error(),
-        description: 'Missing Email, Password, First Name or Last Name',
-      });
-    }
-
-    const user = await this.userService.user({ email });
-
-    if (user) {
-      throw new BadRequestException('Something bad happened', {
-        cause: new Error(),
-        description: 'User already exists',
-      });
-    }
     return {
       status: 201,
       message: await this.authService.register(userData),
@@ -71,13 +55,6 @@ export class AuthController {
       password: string;
     },
   ): Promise<{ status: number; response: { token: string } }> {
-    const { email, password } = userData;
-    if (!email || !password) {
-      throw new BadRequestException('Something bad happened', {
-        cause: new Error(),
-        description: 'Missing Email or Password',
-      });
-    }
     const token = await this.authService.login(userData);
     return { status: 201, response: token };
   }

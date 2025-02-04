@@ -9,19 +9,35 @@ export class BookingService {
   constructor(private prisma: PrismaService) {}
 
   async userBooking(bookingWhereUniqueInput: Prisma.BookingWhereUniqueInput) {
-    return this.prisma.booking.findUnique({
-      where: bookingWhereUniqueInput,
-    });
+    if (!bookingWhereUniqueInput.id) {
+      return new BadRequestException('Booking ID is required.');
+    }
+    return {
+      status: 201,
+      response: await this.prisma.booking.findUnique({
+        where: bookingWhereUniqueInput,
+      }),
+    };
   }
 
-  async userBookings(userId: { userId: number }) {
-    return this.prisma.booking.findMany({
-      where: userId,
-    });
+  async userBookings(userId: {
+    userId: number;
+  }): Promise<
+    { status: number; response: BookingDTO[] } | BadRequestException
+  > {
+    if (!userId.userId) {
+      return new BadRequestException('User ID is required.');
+    }
+    return {
+      status: 201,
+      response: await this.prisma.booking.findMany({
+        where: userId,
+      }),
+    };
   }
 
-  async getLatestBooking() {
-    return this.prisma.booking.findFirst({
+  async getLatestBooking(): Promise<BookingDTO | null> {
+    return await this.prisma.booking.findFirst({
       orderBy: {
         createdAt: 'desc',
       },
@@ -30,14 +46,17 @@ export class BookingService {
 
   async createBooking(
     data: Prisma.BookingCreateInput,
-  ): Promise<BookingDTO | BadRequestException | null> {
+  ): Promise<{ status: number; response: BookingDTO } | BadRequestException> {
     const latestBooking = await this.getLatestBooking();
     const now = new Date();
 
     if (!latestBooking) {
-      return this.prisma.booking.create({
-        data,
-      });
+      return {
+        status: 201,
+        response: await this.prisma.booking.create({
+          data,
+        }),
+      };
     }
 
     const isLatestBookingInInterval = isWithinInterval(
@@ -52,17 +71,20 @@ export class BookingService {
 
     if (!isBookingDelay) {
       return new BadRequestException(
-        'You cannot book in the past, please select a future date',
+        'You cannot book in the past, please select a future date.',
       );
     }
 
     if (latestBooking && !isLatestBookingInInterval) {
-      return this.prisma.booking.create({
-        data,
-      });
+      return {
+        status: 201,
+        response: await this.prisma.booking.create({
+          data,
+        }),
+      };
     }
     return new BadRequestException(
-      'You cannot book two movies within 2 hours of each other',
+      'You cannot book two movies within 2 hours of each other.',
     );
   }
 }
