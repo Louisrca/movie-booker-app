@@ -16,6 +16,7 @@ export class UserController {
     description: 'Show user by email',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiBody({
     type: UserDto,
     description: 'Json structure for user object.',
@@ -31,6 +32,7 @@ export class UserController {
     description: 'Show all users',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiBody({
     type: [UserDto],
     description: 'Json structure for users object.',

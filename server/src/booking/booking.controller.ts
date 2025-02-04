@@ -2,6 +2,7 @@ import { Controller, Body, Post, UseGuards } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { BookingDTO } from './dto/booking.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiResponse, ApiBody } from '@nestjs/swagger';
 
 @Controller('booking')
 export class BookingController {
@@ -9,6 +10,16 @@ export class BookingController {
 
   @UseGuards(AuthGuard)
   @Post('/create')
+  @ApiResponse({
+    status: 201,
+    description: 'Create booking',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiBody({
+    type: BookingDTO,
+    description: 'Json structure for booking object',
+  })
   async createBooking(
     @Body()
     bookingData: BookingDTO,

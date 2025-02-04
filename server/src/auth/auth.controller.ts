@@ -19,6 +19,7 @@ export class AuthController {
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiBody({
     type: RegisterUserDto,
     description: 'Json structure for user object.',
@@ -44,6 +45,7 @@ export class AuthController {
     description: 'The user has been successfully logged in.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiBody({
     type: LoginUserDto,
     description: 'Json structure for user object',
