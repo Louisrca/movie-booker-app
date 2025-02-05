@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { MoviesDTO } from './dto/movies.dto';
 
 @Injectable()
@@ -43,11 +43,14 @@ export class MoviesService {
 
   async getMovieByPageAndName({
     page = 1,
-    name = 'The Lord Of The Ring',
+    name,
   }: {
     page?: number;
-    name?: string;
+    name: string;
   }): Promise<MoviesDTO> {
+    if (!name) {
+      throw new BadRequestException('Name is required');
+    }
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURI(name)}&page=${page}&include_adult=false&language=en-US`;
 
     const options = {
@@ -60,6 +63,9 @@ export class MoviesService {
 
     return await fetch(url, options)
       .then((res) => res.json())
-      .then((data: MoviesDTO) => data);
+      .then((data: MoviesDTO) => data)
+      .catch((err) => {
+        throw new BadRequestException(err);
+      });
   }
 }

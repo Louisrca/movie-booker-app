@@ -4,5 +4,12 @@ export const bookingMock: BookingDTO = {
   userId: 13,
   movieId: 1234,
   movieName: 'Harry Potter',
-  bookingTime: new Date('2026-10-05T00:00:00.000Z'),
+  bookingTime: new Date('2026-10-05T10:00:00.000Z'),
+};
+
+export const pastBookingMock: BookingDTO = {
+  userId: 13,
+  movieId: 1234,
+  movieName: 'Harry Potter',
+  bookingTime: new Date('2026-10-05T05:00:00.000Z'),
 };
