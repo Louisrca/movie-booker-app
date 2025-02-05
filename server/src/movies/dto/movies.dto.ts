@@ -1,4 +1,10 @@
-import { IsBoolean, IsInt, IsNotEmpty, IsDate } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+  IsDate,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class MovieResultDTO {
@@ -21,7 +27,7 @@ export class MovieResultDTO {
     description: 'The genre ids of the movie',
     example: [1, 2, 1],
   })
-  genre_ids: [number];
+  genre_ids: number[];
   @IsInt()
   @ApiProperty({
     description: 'The id of the movie',
@@ -57,6 +63,20 @@ export class MovieResultDTO {
     description: 'The poster path of the movie',
     example: '/path.png',
   })
+  @IsString()
+  @ApiProperty({
+    description: 'The popularity of the movie',
+    example: '2444.44',
+  })
+  popularity: number;
+
+  @IsString()
+  @ApiProperty({
+    description: 'The video status of the movie',
+    example: 'false',
+  })
+  video: boolean;
+
   poster_path: string;
   @IsInt()
   @ApiProperty({
@@ -75,7 +95,7 @@ export class MovieResultDTO {
     description: 'The release date of the movie',
     example: '2021-10-05T00:00:00.000Z',
   })
-  release_date: Date;
+  release_date: string;
 }
 
 export class MoviesDTO {
@@ -91,4 +111,18 @@ export class MoviesDTO {
     type: [MovieResultDTO],
   })
   results: MovieResultDTO[];
+
+  @IsInt()
+  @ApiProperty({
+    description: 'The total results of the movies',
+    example: 100,
+  })
+  total_pages: number;
+
+  @IsInt()
+  @ApiProperty({
+    description: 'The total results of the movies',
+    example: 100,
+  })
+  total_results: number;
 }

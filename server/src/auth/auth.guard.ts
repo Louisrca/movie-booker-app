@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
     if (!token) {
       throw new UnauthorizedException(
-        'You are not authorized to access this resource. Sign in first to get access :)',
+        'You are not authorized to access this resource. No token provide :)',
       );
     }
     try {
@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
       request['user'] = payload;
     } catch {
       throw new UnauthorizedException(
-        'You are not authorized to access this resource. Sign in first to get access :)',
+        'You are not authorized to access this resource. Token is not valid. Sign in first to get access :)',
       );
     }
     return true;

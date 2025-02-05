@@ -15,23 +15,23 @@ export class BookingService {
     return {
       status: 201,
       response: await this.prisma.booking.findUnique({
-        where: bookingWhereUniqueInput,
+        where: { id: bookingWhereUniqueInput.id },
       }),
     };
   }
 
-  async userBookings(userId: {
+  async userBookings(user: {
     userId: number;
   }): Promise<
     { status: number; response: BookingDTO[] } | BadRequestException
   > {
-    if (!userId.userId) {
+    if (!user.userId) {
       return new BadRequestException('User ID is required.');
     }
     return {
       status: 201,
       response: await this.prisma.booking.findMany({
-        where: userId,
+        where: { userId: user.userId },
       }),
     };
   }

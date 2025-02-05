@@ -16,7 +16,7 @@ async function bootstrap() {
       scheme: 'bearer',
       in: 'header',
     })
-    .addSecurityRequirements('ApiKeyAuth')
+    // .addSecurityRequirements('ApiKeyAuth')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

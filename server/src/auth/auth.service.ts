@@ -1,7 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 // on pourrait aussi importer User généré par prisma ici, mais on préfère importer le DTO
-// import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/registerUser.dto';
@@ -24,6 +23,17 @@ export class AuthService {
     return isValid;
   }
 
+  validePasswordRegex(password: RegisterUserDto['password']) {
+    const regexPassword =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%*?&])[A-Za-z\d!@#$%*?&]{8,}$/;
+    if (!regexPassword.test(password)) {
+      throw new BadRequestException(
+        'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character. Characters allowed: !@#$%*?&',
+      );
+    }
+    return true;
+  }
+
   async register(data: RegisterUserDto): Promise<RegisterUserDto> {
     const { email, password } = data;
 
@@ -34,6 +44,8 @@ export class AuthService {
     if (existingUser) {
       throw new BadRequestException('User with this email already exists.');
     }
+
+    this.validePasswordRegex(password);
 
     data.password = await this.hashPassword(password);
 

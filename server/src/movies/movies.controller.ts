@@ -1,5 +1,5 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { MoviesService } from './movies.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 
@@ -15,18 +15,34 @@ export class MoviesController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBearerAuth()
+  @ApiQuery({ name: 'page', required: true })
   async getMoviesByPage(@Query() params: { page: number }) {
-    return this.moviesService.getMoviesByPage(params.page);
+    return this.moviesService.getMoviesByPage({ page: params.page });
   }
   @UseGuards(AuthGuard)
-  @Get('search')
+  @Get('search/name')
   @ApiResponse({
     status: 201,
     description: 'Show movies by name',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBearerAuth()
+  @ApiQuery({ name: 'name', required: true })
   async getMovieByName(@Query() params: { name: string }) {
-    return this.moviesService.getMovieByName(params.name);
+    return this.moviesService.getMovieByName({ name: params.name });
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('search')
+  @ApiResponse({
+    status: 201,
+    description: 'Show movies by name and page',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiBearerAuth()
+  @ApiQuery({ name: 'page', required: true })
+  @ApiQuery({ name: 'name', required: true })
+  async getMovieByPageAndName(@Query() params: { page: number; name: string }) {
+    return this.moviesService.getMovieByPageAndName(params);
   }
 }
