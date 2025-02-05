@@ -1,7 +1,7 @@
 import { Controller, Body, Post, UseGuards } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { BookingDTO } from './dto/booking.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('booking')
