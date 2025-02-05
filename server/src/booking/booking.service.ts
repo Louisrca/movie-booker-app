@@ -48,7 +48,7 @@ export class BookingService {
     data: BookingDTO,
   ): Promise<{ status: number; response: BookingDTO } | BadRequestException> {
     const latestBooking = await this.getLatestBooking();
-    // const now = new Date();
+    const now = new Date();
 
     if (!latestBooking) {
       return {
@@ -67,10 +67,10 @@ export class BookingService {
       },
     );
 
-    // const isBookingDelay = now < new Date(data.bookingTime);
+    const isBookingDelay = now > new Date(data.bookingTime);
 
-    if (new Date(data.bookingTime) < new Date()) {
-      throw new BadRequestException(
+    if (isBookingDelay) {
+      return new BadRequestException(
         'You cannot book in the past, please select a future date.',
       );
     }
