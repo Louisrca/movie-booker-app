@@ -47,7 +47,7 @@ describe('AuthController', () => {
     const uuid = uuidv4();
     const userData = {
       email: `r.armstrong${uuid}@mail.com`,
-      password: 'password',
+      password: 'Password123@',
       firstName: 'Ricky Jest Test',
       lastName: 'Armstrong Jest Test',
     };

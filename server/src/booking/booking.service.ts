@@ -50,6 +50,14 @@ export class BookingService {
     const latestBooking = await this.getLatestBooking();
     const now = new Date();
 
+    const isBookingDelay = new Date(data.bookingTime) < now;
+
+    if (isBookingDelay) {
+      return new BadRequestException(
+        'You cannot book in the past, please select a future date.',
+      );
+    }
+
     if (!latestBooking) {
       return {
         status: 201,
@@ -62,18 +70,10 @@ export class BookingService {
     const isLatestBookingInInterval = isWithinInterval(
       new Date(data.bookingTime),
       {
-        start: new Date(latestBooking?.bookingTime),
-        end: addHours(new Date(latestBooking?.bookingTime), 2),
+        start: new Date(latestBooking.bookingTime),
+        end: addHours(new Date(latestBooking.bookingTime), 2),
       },
     );
-
-    const isBookingDelay = now > new Date(data.bookingTime);
-
-    if (isBookingDelay) {
-      return new BadRequestException(
-        'You cannot book in the past, please select a future date.',
-      );
-    }
 
     if (latestBooking && !isLatestBookingInInterval) {
       return {
