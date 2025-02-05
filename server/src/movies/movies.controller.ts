@@ -1,7 +1,8 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth, ApiQuery, ApiBody } from '@nestjs/swagger';
 import { MoviesService } from './movies.service';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { MoviesDTO } from './dto/movies.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -42,6 +43,10 @@ export class MoviesController {
   @ApiBearerAuth()
   @ApiQuery({ name: 'page', required: true })
   @ApiQuery({ name: 'name', required: true })
+  @ApiBody({
+    type: MoviesDTO,
+    description: 'Json structure for movies object',
+  })
   async getMovieByPageAndName(@Query() params: { page: number; name: string }) {
     return this.moviesService.getMovieByPageAndName(params);
   }

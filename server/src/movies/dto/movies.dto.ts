@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsDate,
   IsString,
+  IsArray,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -11,10 +12,11 @@ export class MovieResultDTO {
   @IsBoolean()
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The adult status of the movie',
-    example: 'false',
+    description: 'Indicates whether the movie is for adults',
+    example: false,
   })
   adult: boolean;
+
   @IsNotEmpty()
   @ApiProperty({
     description: 'The backdrop path of the movie',
@@ -22,74 +24,85 @@ export class MovieResultDTO {
   })
   backdrop_path: string;
 
+  @IsArray()
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The genre ids of the movie',
-    example: [1, 2, 1],
+    description: 'The genre ids associated with the movie',
+    example: [1, 2, 3],
   })
   genre_ids: number[];
+
   @IsInt()
   @ApiProperty({
-    description: 'The id of the movie',
+    description: 'The unique identifier of the movie',
     example: 1,
   })
   id: number;
+
   @IsNotEmpty()
   @ApiProperty({
     description: 'The original language of the movie',
     example: 'en-US',
   })
   original_language: string;
+
   @IsNotEmpty()
   @ApiProperty({
     description: 'The original title of the movie',
     example: 'The Movie',
   })
   original_title: string;
+
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The overview of the movie',
+    description: 'A brief overview of the movie plot',
     example: 'The movie is about...',
   })
   overview: string;
+
   @IsNotEmpty()
   @ApiProperty({
     description: 'The title of the movie',
     example: 'The Movie',
   })
   title: string;
-  @IsNotEmpty()
+
+  @IsInt()
   @ApiProperty({
-    description: 'The poster path of the movie',
-    example: '/path.png',
-  })
-  @IsString()
-  @ApiProperty({
-    description: 'The popularity of the movie',
-    example: '2444.44',
+    description: 'The popularity score of the movie',
+    example: 2444,
   })
   popularity: number;
 
-  @IsString()
+  @IsBoolean()
   @ApiProperty({
-    description: 'The video status of the movie',
-    example: 'false',
+    description: 'Indicates if the movie has a video available',
+    example: false,
   })
   video: boolean;
 
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: 'The poster image path for the movie',
+    example: '/path.png',
+  })
   poster_path: string;
+
   @IsInt()
   @ApiProperty({
     description: 'The average vote of the movie',
-    example: 2444.44,
+    example: 8,
   })
   vote_average: number;
+
   @IsInt()
   @ApiProperty({
-    description: 'The vote count of the movie',
+    description: 'The number of votes received by the movie',
     example: 2444,
   })
   vote_count: number;
+
   @IsDate()
   @ApiProperty({
     description: 'The release date of the movie',
@@ -101,27 +114,29 @@ export class MovieResultDTO {
 export class MoviesDTO {
   @IsInt()
   @ApiProperty({
-    description: 'The page number of the movies',
+    description: 'The page number for the movie results',
     example: 1,
   })
   page: number;
+
+  @IsArray()
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The total results of the movies',
+    description: 'List of movie results',
     type: [MovieResultDTO],
   })
   results: MovieResultDTO[];
 
   @IsInt()
   @ApiProperty({
-    description: 'The total results of the movies',
-    example: 100,
+    description: 'Total number of pages available',
+    example: 10,
   })
   total_pages: number;
 
   @IsInt()
   @ApiProperty({
-    description: 'The total results of the movies',
+    description: 'Total number of results found',
     example: 100,
   })
   total_results: number;
