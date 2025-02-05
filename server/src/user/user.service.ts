@@ -32,21 +32,4 @@ export class UserService {
       ? { status: 201, response: users }
       : new BadRequestException('No users found.');
   }
-
-  async updateUser(params: {
-    where: Prisma.UserWhereUniqueInput;
-    data: Prisma.UserUpdateInput;
-  }): Promise<UserDto> {
-    const { where, data } = params;
-    return this.prisma.user.update({
-      data,
-      where,
-    });
-  }
-
-  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<UserDto> {
-    return this.prisma.user.delete({
-      where,
-    });
-  }
 }
