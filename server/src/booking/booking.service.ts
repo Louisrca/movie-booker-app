@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { Prisma } from '@prisma/client';
 import { BookingDTO } from './dto/booking.dto';
 import { isWithinInterval, addHours } from 'date-fns';
 
@@ -8,20 +7,25 @@ import { isWithinInterval, addHours } from 'date-fns';
 export class BookingService {
   constructor(private prisma: PrismaService) {}
 
-  async userBooking(bookingWhereUniqueInput: Prisma.BookingWhereUniqueInput) {
-    if (!bookingWhereUniqueInput.id) {
+  async userBooking(booking: {
+    id: string;
+  }): Promise<
+    { status: number; response: BookingDTO | null } | BadRequestException
+  > {
+    if (!booking.id) {
       return new BadRequestException('Booking ID is required.');
     }
+
     return {
       status: 201,
       response: await this.prisma.booking.findUnique({
-        where: { id: bookingWhereUniqueInput.id },
+        where: { id: booking.id },
       }),
     };
   }
 
   async userBookings(user: {
-    userId: number;
+    userId: string;
   }): Promise<
     { status: number; response: BookingDTO[] } | BadRequestException
   > {
@@ -36,8 +40,11 @@ export class BookingService {
     };
   }
 
-  async getLatestBooking(): Promise<BookingDTO | null> {
+  async getLatestBooking(userId: string): Promise<BookingDTO | null> {
     return await this.prisma.booking.findFirst({
+      where: {
+        userId: userId,
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -47,7 +54,7 @@ export class BookingService {
   async createBooking(
     data: BookingDTO,
   ): Promise<{ status: number; response: BookingDTO } | BadRequestException> {
-    const latestBooking = await this.getLatestBooking();
+    const latestBooking = await this.getLatestBooking(data.userId);
     const now = new Date();
 
     const isBookingDelay = new Date(data.bookingTime) < now;

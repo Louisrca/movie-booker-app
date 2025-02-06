@@ -29,4 +29,50 @@ export class BookingController {
 
     return createBooking;
   }
+
+  @UseGuards(AuthGuard)
+  @Get('/user-bookings/:userId')
+  @ApiResponse({
+    status: 201,
+    description: 'Show all user bookings',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiBearerAuth()
+  @ApiParam({
+    name: 'userId',
+    required: true,
+    description: 'User ID',
+  })
+  async userBookings(
+    @Param()
+    user: {
+      userId: string;
+    },
+  ) {
+    return await this.bookingService.userBookings(user);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('/:id')
+  @ApiResponse({
+    status: 201,
+    description: 'Show user booking',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiBearerAuth()
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'booking by ID',
+  })
+  async userBooking(
+    @Param()
+    booking: {
+      id: string;
+    },
+  ) {
+    return await this.bookingService.userBooking(booking);
+  }
 }

@@ -57,7 +57,7 @@ describe('BookingService', () => {
 
       mockPrismaService.booking.findUnique.mockResolvedValue(mockBooking);
 
-      const result = await bookingService.userBooking({ id: 1 });
+      const result = await bookingService.userBooking({ id: '2zrzer' });
 
       expect(result).toEqual({
         status: 201,
@@ -89,7 +89,7 @@ describe('BookingService', () => {
 
       mockPrismaService.booking.findMany.mockResolvedValue(mockBookings);
 
-      const result = await bookingService.userBookings({ userId: 1 });
+      const result = await bookingService.userBookings({ userId: 'zerrr' });
 
       expect(result).toEqual({
         status: 201,
@@ -112,7 +112,7 @@ describe('BookingService', () => {
 
       mockPrismaService.booking.findFirst.mockResolvedValue(mockLatestBooking);
 
-      const result = await bookingService.getLatestBooking();
+      const result = await bookingService.getLatestBooking('efzef');
 
       expect(result).toEqual(mockLatestBooking);
       expect(mockPrismaService.booking.findFirst).toHaveBeenCalledWith({
@@ -123,7 +123,7 @@ describe('BookingService', () => {
     it('should return null when no bookings exist', async () => {
       mockPrismaService.booking.findFirst.mockResolvedValue(null);
 
-      const result = await bookingService.getLatestBooking();
+      const result = await bookingService.getLatestBooking('ezfzeg');
 
       expect(result).toBeNull();
     });
