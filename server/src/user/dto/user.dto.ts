@@ -2,7 +2,6 @@ import {
   IsNotEmpty,
   IsEmail,
   MinLength,
-  IsInt,
   IsDate,
   IsString,
 } from 'class-validator';
@@ -11,12 +10,12 @@ import { ApiProperty } from '@nestjs/swagger';
 type Role = 'ADMIN' | 'USER';
 
 export class UserDto {
-  @IsInt()
+  @IsString()
   @ApiProperty({
     description: 'The id of the User',
-    example: '1',
+    example: '5fe8ba10-c291-48d0-ae67-41a99aa6924a',
   })
-  id: number;
+  id: string;
 
   @IsString()
   @IsNotEmpty()

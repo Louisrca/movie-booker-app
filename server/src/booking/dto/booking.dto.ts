@@ -3,12 +3,12 @@ import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class BookingDTO {
-  @IsInt()
+  @IsString()
   @ApiProperty({
     description: 'The id of the booking',
-    example: 1,
+    example: 'f82d9fc5-a25b-4356-a9e9-b8e87d598f7d',
   })
-  userId: number;
+  userId: string;
 
   @IsInt()
   @ApiProperty({
@@ -28,7 +28,7 @@ export class BookingDTO {
   @Type(() => Date)
   @ApiProperty({
     description: 'The booking time of the movie',
-    example: '2021-10-05T00:00:00.000Z',
+    example: '2026-10-05T00:00:00.000Z',
   })
   bookingTime: Date;
 }

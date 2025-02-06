@@ -1,8 +1,8 @@
-import { Controller, Body, Post, UseGuards } from '@nestjs/common';
+import { Controller, Body, Post, UseGuards, Get, Param } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { BookingDTO } from './dto/booking.dto';
 import { AuthGuard } from '../auth/auth.guard';
-import { ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiResponse, ApiBody, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 
 @Controller('booking')
 export class BookingController {

@@ -41,8 +41,8 @@ export class MoviesController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBearerAuth()
-  @ApiQuery({ name: 'page', required: true })
-  @ApiQuery({ name: 'name', required: true })
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'name', required: false })
   @ApiBody({
     type: MoviesDTO,
     description: 'Json structure for movies object',

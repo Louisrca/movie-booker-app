@@ -39,7 +39,7 @@ export class RegisterUserDto {
   @MinLength(8)
   @ApiProperty({
     description: 'The password of the User',
-    example: 'password',
+    example: 'Password123@',
   })
   password: string;
 
