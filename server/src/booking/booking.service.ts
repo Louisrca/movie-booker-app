@@ -17,7 +17,7 @@ export class BookingService {
     }
 
     return {
-      status: 201,
+      status: 200,
       response: await this.prisma.booking.findUnique({
         where: { id: booking.id },
       }),
@@ -33,7 +33,7 @@ export class BookingService {
       return new BadRequestException('User ID is required.');
     }
     return {
-      status: 201,
+      status: 200,
       response: await this.prisma.booking.findMany({
         where: { userId: user.userId },
       }),
@@ -67,7 +67,7 @@ export class BookingService {
 
     if (!latestBooking) {
       return {
-        status: 201,
+        status: 200,
         response: await this.prisma.booking.create({
           data,
         }),
@@ -84,7 +84,7 @@ export class BookingService {
 
     if (latestBooking && !isLatestBookingInInterval) {
       return {
-        status: 201,
+        status: 200,
         response: await this.prisma.booking.create({
           data,
         }),

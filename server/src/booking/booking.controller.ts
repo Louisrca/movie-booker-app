@@ -11,7 +11,7 @@ export class BookingController {
   @UseGuards(AuthGuard)
   @Post('/create')
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Create booking',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
@@ -33,7 +33,7 @@ export class BookingController {
   @UseGuards(AuthGuard)
   @Get('/user-bookings/:userId')
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Show all user bookings',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
@@ -56,7 +56,7 @@ export class BookingController {
   @UseGuards(AuthGuard)
   @Get('/:id')
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Show user booking',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })

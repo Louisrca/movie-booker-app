@@ -15,7 +15,7 @@ export class AuthController {
   ) {}
   @Post('/register')
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The record has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
@@ -34,14 +34,14 @@ export class AuthController {
     },
   ): Promise<{ status: number; message: RegisterUserDto }> {
     return {
-      status: 201,
+      status: 200,
       message: await this.authService.register(userData),
     };
   }
 
   @Post('/login')
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The user has been successfully logged in.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
@@ -58,6 +58,6 @@ export class AuthController {
     },
   ): Promise<{ status: number; response: { token: string } }> {
     const token = await this.authService.login(userData);
-    return { status: 201, response: token };
+    return { status: 200, response: token };
   }
 }

@@ -11,7 +11,7 @@ export class MoviesController {
   @UseGuards(AuthGuard)
   @Get()
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Show all movies and filter by page',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
@@ -23,7 +23,7 @@ export class MoviesController {
   @UseGuards(AuthGuard)
   @Get('search/name')
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Show movies by name',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
@@ -36,7 +36,7 @@ export class MoviesController {
   @UseGuards(AuthGuard)
   @Get('search')
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Show movies by name and page',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
