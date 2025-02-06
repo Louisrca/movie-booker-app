@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
+  id    String     @default(uuid()) @id
   email String  @unique
   firstName String
   lastName  String
@@ -25,8 +25,8 @@ model User {
 }
 
 model Booking {
-  id    Int     @default(autoincrement()) @id
-  userId Int
+  id    String     @default(uuid()) @id
+  userId String     
   movieId Int
   movieName String
   bookingTime DateTime
