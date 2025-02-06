@@ -5,7 +5,7 @@ import { MoviesDTO } from './dto/movies.dto';
 export class MoviesService {
   constructor() {}
 
-  async getMoviesByPage({ page = 1 }: { page: number }): Promise<MoviesDTO> {
+  async getMoviesByPage({ page = 1 }: { page?: number }): Promise<MoviesDTO> {
     const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
 
     const options = {

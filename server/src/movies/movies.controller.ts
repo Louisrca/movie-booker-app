@@ -16,8 +16,8 @@ export class MoviesController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBearerAuth()
-  @ApiQuery({ name: 'page', required: true })
-  async getMoviesByPage(@Query() params: { page: number }) {
+  @ApiQuery({ name: 'page', required: false })
+  async getMoviesByPage(@Query() params: { page?: number }) {
     return this.moviesService.getMoviesByPage({ page: params.page });
   }
   @UseGuards(AuthGuard)
