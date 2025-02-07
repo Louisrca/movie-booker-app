@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { webApiCall } from "../utils/api";
 
@@ -16,5 +16,18 @@ export const useCreateBooking = () => {
         method: "POST",
         body: JSON.stringify(booking),
       }),
+  });
+};
+
+export const useGetBookings = (userId: string) => {
+  return useQuery({
+    queryKey: ["bookings", userId],
+    queryFn: () =>
+      webApiCall(`/booking/user-bookings/${userId}`, {
+        method: "GET",
+        body: null,
+      }),
+    refetchOnMount: "always",
+    staleTime: 5 * 60 * 1000,
   });
 };

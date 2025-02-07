@@ -3,8 +3,8 @@ import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useCreateBooking } from "../../api/booking/booking";
 import { useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
 import dayjs from "dayjs";
+import { decodeJwt } from "../../utils/decodeJwt";
 
 export const BookingCard = ({
   movieId,
@@ -22,23 +22,8 @@ export const BookingCard = ({
 
   const createBooking = useCreateBooking();
 
-  const getUserIdFromJWT = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decodedToken: { email: string; userId: string } =
-          jwtDecode(token);
-        return decodedToken?.userId;
-      } catch (error) {
-        console.error("Erreur lors du décodage du JWT", error);
-        return "";
-      }
-    }
-    return "";
-  };
-
   useEffect(() => {
-    const userId = getUserIdFromJWT();
+    const userId = decodeJwt();
     setBookingData((prevData) => ({
       ...prevData,
       userId,

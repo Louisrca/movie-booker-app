@@ -18,10 +18,8 @@ export default function Movie() {
   const name = searchParams.get("name");
   console.log("🚀 ~ Movie ~ name:", name);
 
-  // Récupération des données du film via useGetMovieById
   const movie = useGetMovieById(Number(id));
 
-  // Si les données sont en train de se charger ou si une erreur survient
   if (movie.isLoading) {
     return (
       <Box display="flex" justifyContent="center" mt={5}>
@@ -40,11 +38,9 @@ export default function Movie() {
     );
   }
 
-  // Extraction des informations du film
   const { title, overview, vote_average, poster_path, release_date } =
     movie.data;
 
-  // Formatage de la date de sortie
   const formattedDate = dayjs(release_date).format("DD MMM YYYY");
 
   return (
@@ -66,12 +62,10 @@ export default function Movie() {
         />
 
         <Box sx={{ p: 2, flex: 1 }}>
-          {/* Titre et Note */}
           <Typography variant="h4" sx={{ fontWeight: "bold", mb: 1 }}>
             {title}
           </Typography>
 
-          {/* Description du film */}
           <Typography variant="body2" sx={{ mt: 2, mb: 2 }}>
             {overview}
           </Typography>
@@ -91,12 +85,10 @@ export default function Movie() {
             <Typography variant="body1">({vote_average}/10)</Typography>
           </Stack>
 
-          {/* Date de sortie */}
           <Typography variant="body2" color="textSecondary">
             Sortie le: {formattedDate}
           </Typography>
 
-          {/* Bouton de réservation */}
           <BookingCard movieId={Number(id)} movieName={title} />
         </Box>
       </Card>
