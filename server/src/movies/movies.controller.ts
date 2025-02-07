@@ -1,8 +1,7 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { ApiResponse, ApiBearerAuth, ApiQuery, ApiBody } from '@nestjs/swagger';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { MoviesService } from './movies.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { MoviesDTO } from './dto/movies.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -17,37 +16,24 @@ export class MoviesController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBearerAuth()
   @ApiQuery({ name: 'page', required: false })
-  async getMoviesByPage(@Query() params: { page?: number }) {
-    return this.moviesService.getMoviesByPage({ page: params.page });
-  }
-  @UseGuards(AuthGuard)
-  @Get('search/name')
-  @ApiResponse({
-    status: 200,
-    description: 'Show movies by name',
-  })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @ApiBearerAuth()
-  @ApiQuery({ name: 'name', required: true })
-  async getMovieByName(@Query() params: { name: string }) {
-    return this.moviesService.getMovieByName({ name: params.name });
+  @ApiQuery({ name: 'name', required: false })
+  async getMoviesByPage(@Query() params: { page?: number; name?: string }) {
+    return this.moviesService.getMoviesByPage({
+      page: params.page,
+      name: params.name,
+    });
   }
 
   @UseGuards(AuthGuard)
-  @Get('search')
+  @Get(':id')
   @ApiResponse({
     status: 200,
-    description: 'Show movies by name and page',
+    description: 'Show movie by id',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBearerAuth()
-  @ApiQuery({ name: 'page', required: false })
-  @ApiQuery({ name: 'name', required: false })
-  @ApiBody({
-    type: MoviesDTO,
-    description: 'Json structure for movies object',
-  })
-  async getMovieByPageAndName(@Query() params: { page: number; name: string }) {
-    return this.moviesService.getMovieByPageAndName(params);
+  @ApiQuery({ name: 'id', required: true })
+  async getMovieById(@Param() params: { id: number }) {
+    return this.moviesService.getMovieById({ id: params.id });
   }
 }
