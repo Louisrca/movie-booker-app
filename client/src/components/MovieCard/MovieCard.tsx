@@ -8,15 +8,29 @@ import {
   Rating,
 } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+
 interface MovieCardProps {
   title: string;
   posterPath: string;
   rating: number;
+  movieId: number;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ title, posterPath, rating }) => {
+const MovieCard: React.FC<MovieCardProps> = ({
+  title,
+  posterPath,
+  rating,
+  movieId,
+}) => {
+  const navigate = useNavigate();
   return (
-    <Card sx={{ width: 300, borderRadius: 2, boxShadow: 3 }}>
+    <Card
+      sx={{ width: 300, borderRadius: 2, boxShadow: 3 }}
+      onClick={() => {
+        navigate(`/movie/${movieId}?name=${title}`);
+      }}
+    >
       <CardMedia
         component="img"
         height="400"
