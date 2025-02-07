@@ -33,7 +33,7 @@ describe('AuthController', () => {
   it('should return a token when a user signs in', async () => {
     const userData = {
       email: 'r.armstrong@mail.com',
-      password: 'password',
+      password: 'Password123@',
     };
 
     const token = await controller.login(userData);
