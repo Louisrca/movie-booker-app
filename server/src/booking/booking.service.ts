@@ -13,7 +13,7 @@ export class BookingService {
     { status: number; response: BookingDTO | null } | BadRequestException
   > {
     if (!booking.id) {
-      return new BadRequestException('Booking ID is required.');
+      throw new BadRequestException('Booking ID is required.');
     }
 
     return {
@@ -30,7 +30,7 @@ export class BookingService {
     { status: number; response: BookingDTO[] } | BadRequestException
   > {
     if (!user.userId) {
-      return new BadRequestException('User ID is required.');
+      throw new BadRequestException('User ID is required.');
     }
     return {
       status: 200,
@@ -60,7 +60,7 @@ export class BookingService {
     const isBookingDelay = new Date(data.bookingTime) < now;
 
     if (isBookingDelay) {
-      return new BadRequestException(
+      throw new BadRequestException(
         'You cannot book in the past, please select a future date.',
       );
     }
@@ -90,7 +90,7 @@ export class BookingService {
         }),
       };
     }
-    return new BadRequestException(
+    throw new BadRequestException(
       'You cannot book two movies within 2 hours of each other.',
     );
   }

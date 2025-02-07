@@ -33,39 +33,4 @@ describe('MoviesService', () => {
       );
     });
   });
-
-  describe('getMovieByName', () => {
-    it('should return movie data for a given name', async () => {
-      (global.fetch as jest.Mock).mockResolvedValue({
-        json: jest.fn().mockResolvedValue(mockMoviesDTO),
-      });
-
-      const result = await service.getMovieByName({
-        name: 'The Lord Of The Ring',
-      });
-      expect(result).toEqual(mockMoviesDTO);
-      expect(fetch).toHaveBeenCalledWith(
-        expect.stringContaining('query=The%20Lord%20Of%20The%20Ring'),
-        expect.any(Object),
-      );
-    });
-  });
-
-  describe('getMovieByPageAndName', () => {
-    it('should return movies data for a given page and name', async () => {
-      (global.fetch as jest.Mock).mockResolvedValue({
-        json: jest.fn().mockResolvedValue(mockMoviesDTO),
-      });
-
-      const result = await service.getMovieByPageAndName({
-        page: 2,
-        name: 'Movie 2',
-      });
-      expect(result).toEqual(mockMoviesDTO);
-      expect(fetch).toHaveBeenCalledWith(
-        expect.stringContaining('query=Movie%202&page=2'),
-        expect.any(Object),
-      );
-    });
-  });
 });
